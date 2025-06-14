@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { User } from "../../../../models/User";
+import { User } from "../../../../../models/User";
+import { connectToDB } from "../../../../../lib/dbConnect";
 
 export async function GET(req: NextRequest) {
     try {
         const { username } = await req.json()
         try {
+            await connectToDB()
+
             const existingUsername = await User.exists({ username: username.trim() })
             return NextResponse.json({
                 available: !existingUsername

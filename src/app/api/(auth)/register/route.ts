@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { User } from "../../../../models/User";
-import { connectToDB } from "../../../../lib/dbConnect";
+import { User } from "../../../../../models/User";
+import { connectToDB } from "../../../../../lib/dbConnect";
 
 export async function POST(req: NextRequest) {
     try {
@@ -33,4 +33,10 @@ export async function POST(req: NextRequest) {
             { status: 500 }
         );
     }
+}
+
+export async function GET() {
+    return NextResponse.json({
+        "message": "Hello World"
+    }, {status: 200})
 }

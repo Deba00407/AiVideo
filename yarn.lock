@@ -1191,7 +1191,7 @@ __metadata:
     eslint: "npm:^9"
     eslint-config-next: "npm:15.3.3"
     mongoose: "npm:^8.15.2"
-    next: "npm:15.3.3"
+    next: "npm:^15.3.3"
     next-auth: "npm:^4.24.11"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
@@ -3598,7 +3598,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:15.3.3":
+"next@npm:^15.3.3":
   version: 15.3.3
   resolution: "next@npm:15.3.3"
   dependencies:
