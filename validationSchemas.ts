@@ -1,6 +1,6 @@
-import { z } from "zod/v4"
+import { z } from "zod"
 
-const UserValidationSchema = z.object({
+const RegisterFormValidationSchema = z.object({
     username: z.string()
         .min(8, {
             message: "Username must be atleast 8 characters long"
@@ -19,5 +19,5 @@ const UserValidationSchema = z.object({
 })
 
 export {
-    UserValidationSchema
+    RegisterFormValidationSchema
 }

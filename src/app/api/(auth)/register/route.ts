@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
         await connectToDB()
 
         // check for existing user
-        const existingUser = await User.findOne({ email })
+        const existingUser = await User.findOne({$or: [{ email }, {username}]})
         if (existingUser) {
             return NextResponse.json(
                 { "error": "User already exists. Please log in" }, { status: 400 })
@@ -33,10 +33,4 @@ export async function POST(req: NextRequest) {
             { status: 500 }
         );
     }
-}
-
-export async function GET() {
-    return NextResponse.json({
-        "message": "Hello World"
-    }, {status: 200})
 }

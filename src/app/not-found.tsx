@@ -1,6 +1,6 @@
-import Image from 'next/image';
+import Image from "next/image"
 
-const NotFoundPage: React.FC = () => {
+export default function NotFound() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100  flex items-center justify-center p-4">
             <div className="max-w-2xl w-full text-center">
@@ -8,7 +8,7 @@ const NotFoundPage: React.FC = () => {
                 <div className="mb-8 relative">
                     <div className="relative inline-block">
                         <Image
-                            src="notFound.svg"
+                            src="/notFound.svg"
                             alt="404 Not Found Illustration"
                             height={100}
                             width={100}
@@ -28,7 +28,5 @@ const NotFoundPage: React.FC = () => {
 
             </div>
         </div>
-    );
-};
-
-export default NotFoundPage;
+    )
+}

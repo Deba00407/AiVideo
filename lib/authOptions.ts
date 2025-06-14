@@ -4,6 +4,8 @@ import { connectToDB } from "./dbConnect";
 import { User } from "../models/User";
 import bcrypt from "bcryptjs"
 
+import GitHubProvider from "next-auth/providers/github";
+
 export const authOptions: NextAuthOptions = {
     providers: [
         CredentialsProvider({
@@ -50,6 +52,11 @@ export const authOptions: NextAuthOptions = {
                     throw error
                 }
             },
+        }),
+
+        GitHubProvider({
+            clientId: process.env.GITHUB_CLIENT as string,
+            clientSecret: process.env.GITHUB_SECRET as string
         })
     ],
 

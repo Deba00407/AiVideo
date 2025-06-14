@@ -1,6 +1,7 @@
-
-export default function Home() {
+export default function LandingPage() {
   return (
-    <div>Next app is running</div>
+    <div>
+      <span>this is landing page</span>
+    </div>
   );
 }
