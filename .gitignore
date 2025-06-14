@@ -76,3 +76,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+#vscode settings
+.vscode
+
+#template README
+README.md
