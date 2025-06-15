@@ -42,7 +42,6 @@ const FileUpload = () => {
     const [uploadComplete, setUploadComplete] = useState(false);
 
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const abortController = new AbortController();
 
     const authenticator = async () => {
         try {
@@ -111,7 +110,6 @@ const FileUpload = () => {
                 onProgress: (event) => {
                     setProgress((event.loaded / event.total) * 100);
                 },
-                abortSignal: abortController.signal,
             });
 
             const data: FileType = {
@@ -119,11 +117,14 @@ const FileUpload = () => {
                 description,
                 tags: Array.from(tags.split(",")),
                 fileURL: uploadResponse.url as string,
-                thumbnailURL: uploadResponse.thumbnailUrl as string,
-                category
+                thumbnailURL: (uploadResponse.thumbnailUrl ?? `${uploadResponse.url}/ik-thumbnail.jpg`) as string,
+                category,
+                controls: true,
+                transformation: {
+                    height: uploadResponse.height as number,
+                    width: uploadResponse.width as number,
+                }
             }
-
-            
 
             await uploadVideoRecord(data)
 

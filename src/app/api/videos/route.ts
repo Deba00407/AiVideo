@@ -44,7 +44,6 @@ export async function POST(req: NextRequest) {
         await connectToDB()
 
         const body: FileType = await req.json()
-        console.log("Received data: ", body)
 
         if(!body.fileURL || !body.thumbnailURL){
             return NextResponse.json({

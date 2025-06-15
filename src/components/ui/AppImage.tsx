@@ -28,55 +28,70 @@ export function AppImage({ data }: AppImageProps) {
 
     return (
         <Card className="group overflow-hidden hover:shadow-lg transition-all duration-300">
-            <div className="relative aspect-square bg-muted overflow-hidden">
-                {data.fileURL ? (
-                    <img
-                        src={data.fileURL}
-                        alt={data.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                        <div className="text-center">
-                            <div className="h-12 w-12 mx-auto mb-2 bg-primary/10 rounded-lg flex items-center justify-center">
-                                <Eye className="h-6 w-6 text-primary/60" />
+            <div className="relative">
+                {/* Image Container with proper aspect ratio */}
+                <div className="aspect-square bg-muted overflow-hidden relative">
+                    {data.fileURL ? (
+                        <img
+                            src={data.fileURL}
+                            alt={data.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                    ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                            <div className="text-center">
+                                <div className="h-12 w-12 mx-auto mb-2 bg-primary/10 rounded-lg flex items-center justify-center">
+                                    <Eye className="h-6 w-6 text-primary/60" />
+                                </div>
+                                <p className="text-sm text-muted-foreground">No image</p>
                             </div>
-                            <p className="text-sm text-muted-foreground">No image</p>
                         </div>
-                    </div>
-                )}
-
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
-
-                {data.category && (
-                    <Badge variant="secondary" className="absolute top-3 left-3">
-                        {data.category}
-                    </Badge>
-                )}
-
-                <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="secondary" size="sm" className="h-8 w-8 p-0">
-                                <MoreHorizontal className="h-4 w-4" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            <DropdownMenuItem><Eye className="mr-2 h-4 w-4" /> View Full Size</DropdownMenuItem>
-                            <DropdownMenuItem><Download className="mr-2 h-4 w-4" /> Download</DropdownMenuItem>
-                            <DropdownMenuItem><Share2 className="mr-2 h-4 w-4" /> Share</DropdownMenuItem>
-                            <DropdownMenuItem><Heart className="mr-2 h-4 w-4" /> Like</DropdownMenuItem>
-                            <DropdownMenuItem><Bookmark className="mr-2 h-4 w-4" /> Save</DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                    )}
                 </div>
 
-                <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                {/* Top overlay elements - positioned to not interfere with image */}
+                <div className="absolute top-0 left-0 right-0 p-3 bg-gradient-to-b from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                    <div className="flex justify-between items-start">
+                        {data.category && (
+                            <Badge variant="secondary" className="pointer-events-auto">
+                                {data.category}
+                            </Badge>
+                        )}
+                        
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button 
+                                    variant="secondary" 
+                                    size="sm" 
+                                    className="h-8 w-8 p-0 pointer-events-auto"
+                                >
+                                    <MoreHorizontal className="h-4 w-4" />
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end" className="pointer-events-auto">
+                                <DropdownMenuItem><Eye className="mr-2 h-4 w-4" /> View Full Size</DropdownMenuItem>
+                                <DropdownMenuItem><Download className="mr-2 h-4 w-4" /> Download</DropdownMenuItem>
+                                <DropdownMenuItem><Share2 className="mr-2 h-4 w-4" /> Share</DropdownMenuItem>
+                                <DropdownMenuItem><Heart className="mr-2 h-4 w-4" /> Like</DropdownMenuItem>
+                                <DropdownMenuItem><Bookmark className="mr-2 h-4 w-4" /> Save</DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </div>
+                </div>
+
+                {/* Bottom overlay elements - positioned to not interfere with image */}
+                <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                     <div className="flex justify-between items-center">
-                        <Button variant="secondary" size="sm"><Eye className="mr-2 h-4 w-4" /> View</Button>
+                        <Button variant="secondary" size="sm" className="pointer-events-auto">
+                            <Eye className="mr-2 h-4 w-4" /> View
+                        </Button>
                         <div className="flex space-x-1">
-                            <Button variant="secondary" size="sm" className="h-8 w-8 p-0"><Share2 className="h-4 w-4" /></Button>
-                            <Button variant="secondary" size="sm" className="h-8 w-8 p-0"><Download className="h-4 w-4" /></Button>
+                            <Button variant="secondary" size="sm" className="h-8 w-8 p-0 pointer-events-auto">
+                                <Share2 className="h-4 w-4" />
+                            </Button>
+                            <Button variant="secondary" size="sm" className="h-8 w-8 p-0 pointer-events-auto">
+                                <Download className="h-4 w-4" />
+                            </Button>
                         </div>
                     </div>
                 </div>
