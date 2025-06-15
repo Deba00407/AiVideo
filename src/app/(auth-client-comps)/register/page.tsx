@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Loader2Icon } from "lucide-react"
 import toast, { Toaster } from 'react-hot-toast';
+import Link from "next/link"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -35,11 +36,13 @@ export default function SignUpPage() {
                 password: values.password
             });
 
-            toast.success("Account created successfully")
+            toast.success("Account created successfully. Please Login now")
+            reset()
         } catch (err: any) {
             toast.error(err.response.data.error);
         } finally {
             setcreatingAccount(false);
+            setAvailable(null)
         }
     }
 
@@ -71,7 +74,14 @@ export default function SignUpPage() {
 
     const form = useForm<z.infer<typeof RegisterFormValidationSchema>>({
         resolver: zodResolver(RegisterFormValidationSchema),
+        defaultValues: {
+            username: "",
+            email: "",
+            password: ""
+        }
     })
+
+    const {reset} = form
 
 
     return <>
@@ -110,20 +120,16 @@ export default function SignUpPage() {
                                         />
                                     </FormControl>
                                     <FormMessage />
-                                    {field.value && (
+                                    {field.value && available !== null && (
                                         <p
-                                            className={`text-xs mt-1 ${available === null
-                                                    ? 'text-gray-400'
-                                                    : available
-                                                        ? 'text-green-400'
-                                                        : 'text-red-400'
+                                            className={`text-xs mt-1 ${available
+                                                ? 'text-green-400'
+                                                : 'text-red-400'
                                                 }`}
                                         >
-                                            {available === null
-                                                ? 'Checking...'
-                                                : available
-                                                    ? 'Username available'
-                                                    : 'Username not available'}
+                                            {available
+                                                ? 'Username available'
+                                                : 'Username is already taken'}
                                         </p>
                                     )}
                                 </FormItem>
@@ -178,6 +184,7 @@ export default function SignUpPage() {
                         <Button
                             type="submit"
                             className="w-full text-sm rounded-md"
+                            disabled={!!!available}
                         >
                             {creatingAccount ? (
                                 <>
@@ -198,6 +205,13 @@ export default function SignUpPage() {
                             <Image src="/github.svg" alt="GitHub logo" height={20} width={20} />
                             Sign in with GitHub
                         </Button> */}
+
+                        <div className="text-center mt-6">
+                            <span className="text-sm text-gray-400">Already have an account? </span>
+                            <Link href={"/login"} className="text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors underline">
+                                Sign in
+                            </Link>
+                        </div>
                     </form>
                 </Form>
             </div>

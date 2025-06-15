@@ -4,7 +4,7 @@ const RegisterFormValidationSchema = z.object({
     username: z.string()
         .min(8, {
             message: "Username must be atleast 8 characters long"
-        }).max(10, {
+        }).max(20, {
             message: "Username cannot have more than 10 characters"
         }).regex(/[!@#$%^&*(),.?":{}|<>_\-+=~`[\]\\\/]/
             , {
