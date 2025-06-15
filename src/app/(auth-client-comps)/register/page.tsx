@@ -16,16 +16,16 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { RegisterFormValidationSchema } from "../../../../validationSchemas"
-import { signIn } from "next-auth/react"
-import Image from "next/image"
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import axios from "axios"
+import debounce from "debounce"
 
 
 
 export default function SignUpPage() {
 
     const [creatingAccount, setcreatingAccount] = useState(false)
+    const [available, setAvailable] = useState<boolean | null>(null)
 
     const registerNewUser = async (values: z.infer<typeof RegisterFormValidationSchema>) => {
         try {
@@ -48,6 +48,26 @@ export default function SignUpPage() {
         registerNewUser(values);
     }
 
+    const checkUsername = async (value: string) => {
+        try {
+            const response = await axios.post("/api/checkUsername", {
+                username: value,
+            });
+            setAvailable(response.data?.available ?? false);
+        } catch (error) {
+            console.error("Username check failed", error);
+            setAvailable(false);
+        }
+    };
+
+    const checkUsernameDebounced = useCallback(
+        debounce((value: string) => {
+            if (value.length >= 8) {
+                checkUsername(value);
+            }
+        }, 500),
+        []
+    )
 
     const form = useForm<z.infer<typeof RegisterFormValidationSchema>>({
         resolver: zodResolver(RegisterFormValidationSchema),
@@ -72,18 +92,44 @@ export default function SignUpPage() {
                                     <FormControl>
                                         <Input
                                             placeholder="Enter username"
-                                            className="w-full bg-transparent  dark:text-white rounded-md px-3 py-2 text-sm placeholder-white focus:outline-none focus:ring-0"
+                                            className="w-full bg-transparent dark:text-white rounded-md px-3 py-2 text-sm placeholder-white focus:outline-none focus:ring-0"
                                             value={field.value || ''}
-                                            onChange={field.onChange}
+                                            onChange={(e) => {
+                                                const value = e.target.value;
+
+                                                field.onChange(value);
+
+                                                checkUsernameDebounced(value);
+                                                if (value.length < 8) {
+                                                    setAvailable(null);
+                                                }
+                                            }}
                                             onBlur={field.onBlur}
                                             name={field.name}
                                             ref={field.ref}
                                         />
                                     </FormControl>
                                     <FormMessage />
+                                    {field.value && (
+                                        <p
+                                            className={`text-xs mt-1 ${available === null
+                                                    ? 'text-gray-400'
+                                                    : available
+                                                        ? 'text-green-400'
+                                                        : 'text-red-400'
+                                                }`}
+                                        >
+                                            {available === null
+                                                ? 'Checking...'
+                                                : available
+                                                    ? 'Username available'
+                                                    : 'Username not available'}
+                                        </p>
+                                    )}
                                 </FormItem>
                             )}
                         />
+
 
                         <FormField
                             control={form.control}
@@ -143,7 +189,7 @@ export default function SignUpPage() {
                             )}
                         </Button>
 
-                        <Button
+                        {/* <Button
                             type="button"
                             onClick={() => signIn("github", { redirect: true })}
                             variant="outline"
@@ -151,7 +197,7 @@ export default function SignUpPage() {
                         >
                             <Image src="/github.svg" alt="GitHub logo" height={20} width={20} />
                             Sign in with GitHub
-                        </Button>
+                        </Button> */}
                     </form>
                 </Form>
             </div>

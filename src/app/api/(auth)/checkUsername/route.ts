@@ -2,10 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { User } from "../../../../../models/User";
 import { connectToDB } from "../../../../../lib/dbConnect";
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
     try {
         const { username } = await req.json()
-        console.log(username)
         
         await connectToDB()
 
