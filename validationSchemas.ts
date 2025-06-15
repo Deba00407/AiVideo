@@ -15,9 +15,17 @@ const RegisterFormValidationSchema = z.object({
         message: "Email address is invalid"
     }),
 
-    password: z.string().regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm, {message: "Password must be at least 8 characters long and include uppercase, lowercase, number, and special character"})
+    password: z.string().regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm, { message: "Password must be at least 8 characters long and include uppercase, lowercase, number, and special character" })
+})
+
+const LoginFormValidationSchema = z.object({
+    email: z.string().regex(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g, {
+        message: "Email address is invalid"
+    }),
+
+    password: z.string().regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm, { message: "Password must be at least 8 characters long and include uppercase, lowercase, number, and special character" })
 })
 
 export {
-    RegisterFormValidationSchema
+    RegisterFormValidationSchema, LoginFormValidationSchema
 }

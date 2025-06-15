@@ -11,23 +11,22 @@ export const authOptions: NextAuthOptions = {
         CredentialsProvider({
             name: "Email",
             credentials: {
-                username: { label: "Username", type: "text", placeholder: "Enter your username" },
                 email: { label: "Email", type: "text", placeholder: "Enter your email" },
                 password: { label: "Password", type: "password", placeholder: "Enter your password" }
             },
 
             // authorization logic
             async authorize(credentials) {
-                if (!credentials?.username || !credentials?.email || !credentials?.password) {
+                if (!credentials?.email || !credentials?.password) {
                     throw new Error("All fields are required")
                 }
 
                 try {
                     await connectToDB()
 
-                    const { username, email, password } = credentials
+                    const { email, password } = credentials
 
-                    const user = await User.findOne({ $or: [{ email }, { username }] })
+                    const user = await User.findOne({email})
                     if (!user) {
                         throw new Error("User not found for the given credentials")
                     }
@@ -82,8 +81,8 @@ export const authOptions: NextAuthOptions = {
     },
 
     pages: {
-        signIn: "/sign-in",
-        error: "/sign-in"
+        signIn: "/login",
+        error: "/login"
     },
 
     session:{
