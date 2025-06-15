@@ -26,8 +26,8 @@ import axios from "axios";
 const uploadVideoRecord = async (data: FileType) => {
     try {
         await axios.post("/api/videos", data)
-    } catch (error) {
-        throw new Error("Upload request failed")
+    } catch (error: any) {
+        throw new Error("Error while saving to database:", error)
     }
 }
 
@@ -146,7 +146,7 @@ const FileUpload = () => {
     };
 
     return (
-        <div className="w-full max-w-2xl mx-auto space-y-6">
+        <div className="w-full max-w-2xl mx-auto space-y-6 box-border p-3">
             <div className="space-y-2">
                 <h2 className="text-2xl font-semibold tracking-tight">Upload File</h2>
                 <p className="text-sm text-muted-foreground">
@@ -213,7 +213,6 @@ const FileUpload = () => {
                     </p>
                 </div>
 
-                {/* ✅ Hidden file input */}
                 <input
                     type="file"
                     ref={fileInputRef}

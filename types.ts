@@ -23,6 +23,8 @@ export type FileType = {
         width: number,
         quality?: number
     }
+    createdAt?: Date
+    updatedAt?: Date
 }
 
 export const DEFAULT_VIDEO_DIMENSIONS = {
