@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
         }, { status: 200 })
 
     } catch (error) {
-        console.log("Failed operation for validating usernames")
+        console.error("Failed operation for validating usernames", error)
         return NextResponse.json({
             message: "Failed operation for validating usernames"
         }, { status: 500 })

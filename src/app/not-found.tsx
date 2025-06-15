@@ -22,7 +22,7 @@ export default function NotFound() {
                         Page Not Found
                     </h1>
                     <p className="text-lg text-gray-600 max-w-md mx-auto leading-relaxed">
-                        Oops! The page you're looking for seems to have wandered off into the digital wilderness.
+                        Oops! The page you&apos;re looking for seems to have wandered off into the digital wilderness.
                     </p>
                 </div>
 

@@ -26,8 +26,9 @@ import axios from "axios";
 const uploadVideoRecord = async (data: FileType) => {
     try {
         await axios.post("/api/videos", data)
-    } catch (error: any) {
-        throw new Error("Error while saving to database:", error)
+    } catch (error) {
+        console.error(error)
+        throw new Error("Error while saving to database")
     }
 }
 

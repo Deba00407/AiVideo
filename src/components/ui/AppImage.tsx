@@ -10,6 +10,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
+import Image from "next/image"
 import { FileType } from "../../../types"
 
 interface AppImageProps {
@@ -32,10 +33,12 @@ export function AppImage({ data }: AppImageProps) {
                 {/* Image Container with proper aspect ratio */}
                 <div className="aspect-square bg-muted overflow-hidden relative">
                     {data.fileURL ? (
-                        <img
+                        <Image
                             src={data.fileURL}
                             alt={data.title}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            height={100}
+                            width={100}
                         />
                     ) : (
                         <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">

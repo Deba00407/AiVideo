@@ -27,8 +27,8 @@ export async function connectToDB() {
     try {
         cacheConnection.conn = await cacheConnection.promise
     } catch (error) {
-        cacheConnection.promise = null
-        throw new Error("Could not load mongo uri from env")
+        cacheConnection.promise = null;
+        throw new Error(`Could not load mongo uri from env: ${(error as Error).message}`);
     }
 
     return cacheConnection?.conn

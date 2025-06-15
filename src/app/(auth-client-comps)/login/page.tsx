@@ -18,25 +18,26 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { useState } from "react"
 import { LoginFormValidationSchema } from "../../../../validationSchemas"
-import {signIn} from "next-auth/react"
+import { signIn } from "next-auth/react"
 
 export default function LoginPage() {
     const [loggingIn, setLoggingIn] = useState(false)
 
     const loginUser = async (values: z.infer<typeof LoginFormValidationSchema>) => {
         try {
-            
+
             await signIn("credentials", {
                 email: values.email,
                 password: values.password,
                 redirect: true,
                 callbackUrl: "/home"
             })
-            
+
             toast.success("Login successful!")
             reset()
-        } catch (err: any) {
-            toast.error("Login failed");
+        } catch (err) {
+            toast.error("Login failed")
+            console.error(err)
         } finally {
             setLoggingIn(false);
         }
@@ -126,7 +127,7 @@ export default function LoginPage() {
                         </Button>
 
                         <div className="text-center mt-6">
-                            <span className="text-sm text-gray-400">Don't have an account? </span>
+                            <span className="text-sm text-gray-400">Don&apos;t have an account? </span>
                             <Link href={"/register"} className="text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors underline">
                                 Sign up
                             </Link>

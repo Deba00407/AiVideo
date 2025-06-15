@@ -68,6 +68,7 @@ export async function POST(req: NextRequest) {
         }, {status: 201})
 
     } catch (error) {
+        console.error("Error saving file to database", error)
         return NextResponse.json({
             "message": "Video record creation failed"
         }, {status: 500})

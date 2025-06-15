@@ -38,8 +38,9 @@ export default function SignUpPage() {
 
             toast.success("Account created successfully. Please Login now")
             reset()
-        } catch (err: any) {
-            toast.error(err.response.data.error);
+        } catch (err) {
+            toast.error("Error occured while registering user");
+            console.error(err)
         } finally {
             setcreatingAccount(false);
             setAvailable(null)
@@ -69,7 +70,7 @@ export default function SignUpPage() {
                 checkUsername(value);
             }
         }, 500),
-        []
+        [checkUsername]
     )
 
     const form = useForm<z.infer<typeof RegisterFormValidationSchema>>({
