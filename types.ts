@@ -9,10 +9,12 @@ export type UserType = {
     updatedAt?: Date
 }
 
-export type VideoType = {
+export type FileType = {
     _id?: mongoose.Types.ObjectId
     title: string
     description: string
+    category: string
+    tags: string[]
     fileURL: string
     thumbnailURL: string
     controls?: boolean

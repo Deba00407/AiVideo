@@ -1,7 +1,7 @@
 import {model, Schema, models} from "mongoose";
-import { DEFAULT_VIDEO_DIMENSIONS, type VideoType } from "../types";
+import { DEFAULT_VIDEO_DIMENSIONS, type FileType } from "../types";
 
-const videoSchema = new Schema<VideoType>({
+const videoSchema = new Schema<FileType>({
     title: {
         type: String,
         required: true
@@ -9,10 +9,11 @@ const videoSchema = new Schema<VideoType>({
 
     description: {
         type: String,
-        required: true,
-        minlength: 100, 
+        required: true, 
         maxlength: 4096
     }, 
+
+    tags: [{type: String}],
 
     fileURL: {
         type: String,
@@ -22,6 +23,10 @@ const videoSchema = new Schema<VideoType>({
     thumbnailURL: {
         type: String,
         required: true
+    },
+
+    category: {
+        type: String
     },
 
     controls: {

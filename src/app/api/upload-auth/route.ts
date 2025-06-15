@@ -8,7 +8,7 @@ export async function GET() {
             publicKey: process.env.NEXT_PUBLIC_PUBLIC_KEY as string
         })
 
-        return NextResponse.json({ authParams, publicKey: process.env.NEXT_PUBLIC_PUBLIC_KEY })
+        return NextResponse.json({ ...authParams, publicKey: process.env.NEXT_PUBLIC_PUBLIC_KEY})
     } catch (error) {
         console.error("Failed to generate auth params for file upload")
         return NextResponse.json({

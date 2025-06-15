@@ -3,7 +3,7 @@ import { connectToDB } from "../../../../lib/dbConnect";
 import VideoModel from "../../../../models/Video"
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../../../lib/authOptions";
-import { DEFAULT_VIDEO_DIMENSIONS, VideoType } from "../../../../types";
+import { DEFAULT_VIDEO_DIMENSIONS, FileType } from "../../../../types";
 
 export async function GET() {
     try {
@@ -43,7 +43,9 @@ export async function POST(req: NextRequest) {
 
         await connectToDB()
 
-        const body: VideoType = await req.json()
+        const body: FileType = await req.json()
+        console.log("Received data: ", body)
+
         if(!body.fileURL || !body.thumbnailURL){
             return NextResponse.json({
                 "message": "Upload files are missing"
