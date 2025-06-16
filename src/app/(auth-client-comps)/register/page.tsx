@@ -17,7 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { RegisterFormValidationSchema } from "../../../../validationSchemas"
-import { useCallback, useState } from "react"
+import { useCallback, useState, useRef } from "react"
 import axios from "axios"
 import debounce from "debounce"
 
@@ -27,6 +27,8 @@ export default function SignUpPage() {
 
     const [creatingAccount, setcreatingAccount] = useState(false)
     const [available, setAvailable] = useState<boolean | null>(null)
+
+    const latestUsername = useRef("")
 
     const registerNewUser = async (values: z.infer<typeof RegisterFormValidationSchema>) => {
         try {
@@ -52,17 +54,18 @@ export default function SignUpPage() {
         registerNewUser(values);
     }
 
-    const checkUsername = async (value: string) => {
+    const checkUsername = useCallback(async (value: string) => {
+        latestUsername.current = value;
         try {
-            const response = await axios.post("/api/checkUsername", {
-                username: value,
-            });
-            setAvailable(response.data?.available ?? false);
+            const response = await axios.post("/api/checkUsername", { username: value });
+            if (latestUsername.current === value) {
+                setAvailable(response.data?.available ?? false);
+            }
         } catch (error) {
             console.error("Username check failed", error);
             setAvailable(false);
         }
-    };
+    }, []);
 
     const checkUsernameDebounced = useCallback(
         debounce((value: string) => {
@@ -71,7 +74,8 @@ export default function SignUpPage() {
             }
         }, 500),
         [checkUsername]
-    )
+    );
+
 
     const form = useForm<z.infer<typeof RegisterFormValidationSchema>>({
         resolver: zodResolver(RegisterFormValidationSchema),
@@ -82,7 +86,7 @@ export default function SignUpPage() {
         }
     })
 
-    const {reset} = form
+    const { reset } = form
 
 
     return <>
@@ -196,16 +200,6 @@ export default function SignUpPage() {
                                 "Create Account"
                             )}
                         </Button>
-
-                        {/* <Button
-                            type="button"
-                            onClick={() => signIn("github", { redirect: true })}
-                            variant="outline"
-                            className="w-full flex items-center justify-center gap-2 text-sm rounded-md dark:bg-white dark:text-black hover:dark:bg-gray-300 bg-[#F8FAFC]"
-                        >
-                            <Image src="/github.svg" alt="GitHub logo" height={20} width={20} />
-                            Sign in with GitHub
-                        </Button> */}
 
                         <div className="text-center mt-6">
                             <span className="text-sm text-gray-400">Already have an account? </span>

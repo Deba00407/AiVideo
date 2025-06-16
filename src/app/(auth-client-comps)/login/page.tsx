@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Loader2Icon } from "lucide-react"
 import toast, { Toaster } from 'react-hot-toast';
+import Image from "next/image"
 import Link from "next/link"
 
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -126,12 +127,24 @@ export default function LoginPage() {
                             )}
                         </Button>
 
+                        <Button
+                            type="button"
+                            onClick={() => signIn("github", { redirect: true, callbackUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/home`})}
+                            variant="outline"
+                            className="w-full flex items-center justify-center gap-2 text-sm rounded-md dark:bg-white dark:text-black hover:dark:bg-gray-300 bg-[#F8FAFC]"
+                        >
+                            <Image src="/github.svg" alt="GitHub logo" height={20} width={20} />
+                            Sign in with GitHub
+                        </Button>
+
                         <div className="text-center mt-6">
                             <span className="text-sm text-gray-400">Don&apos;t have an account? </span>
                             <Link href={"/register"} className="text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors underline">
                                 Sign up
                             </Link>
                         </div>
+
+                       
                     </form>
                 </Form>
             </div>
