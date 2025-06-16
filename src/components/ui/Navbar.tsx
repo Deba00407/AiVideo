@@ -10,7 +10,7 @@ import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 
 const Navbar = () => {
-  const { data: session, status } = useSession()
+  const { status } = useSession()
   const [authenticated, setAuthenticated] = useState<boolean | null>(null)
 
   useEffect(() => {
