@@ -36,7 +36,7 @@ const Navbar = () => {
   }
 
   const handleSignOut = () => {
-    signOut({ callbackUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}` })
+    signOut({ callbackUrl: '/' })
     toast.success("Signed Out successfully")
   }
 
