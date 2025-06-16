@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# VideoHub
 
-## Getting Started
+A modern web application for AI-powered video processing and management. Built with Next.js 14, React 19, and MongoDB, featuring user authentication, video uploads, and AI-powered video processing capabilities.
 
-First, run the development server:
+## ✨ Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- 🔐 User Authentication (Register/Login)
+- 🎥 Video Upload and Management
+- 🤖 AI-Powered Video Processing
+- 🎨 Modern UI with Dark/Light Mode
+- 📱 Responsive Design
+- ⚡ Fast and Optimized Performance
+
+## 🚀 Tech Stack
+
+- **Frontend**: Next.js 14, React 19, TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: React Hook Form, Zod
+- **Authentication**: NextAuth.js
+- **Database**: MongoDB with Mongoose
+- **UI Components**: Radix UI, Lucide Icons
+- **Form Handling**: React Hook Form with Zod validation
+
+## 🛠️ Prerequisites
+
+- Node.js 18+ and npm/yarn
+- MongoDB Atlas account or local MongoDB instance
+- ImageKit account (for image/video storage)
+
+## 🏗️ Getting Started
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/videohub.git
+   cd videohub
+   ```
+
+2. **Install Dependencies**
+   ```bash
+   yarn install
+   # or
+   npm install
+   ```
+
+3. **Set up Environment Variables**
+   Create a `.env` file in the root directory and add the following variables:
+   ```
+   MONGODB_URI=your_mongodb_connection_string
+   NEXTAUTH_SECRET=your_nextauth_secret
+   NEXTAUTH_URL=http://localhost:3000
+   IMAGEKIT_PUBLIC_KEY=your_imagekit_public_key
+   IMAGEKIT_PRIVATE_KEY=your_imagekit_private_key
+   IMAGEKIT_URL_ENDPOINT=your_imagekit_url_endpoint
+   ```
+
+4. **Run the Development Server**
+   ```bash
+   yarn dev
+   # or
+   npm run dev
+   ```
+
+5. **Open [http://localhost:3000](http://localhost:3000)** in your browser
+
+## 📂 Project Structure
+
+```
+videohub/
+├── src/
+│   ├── app/                 # App router
+│   ├── components/          # Reusable components
+│   │   └── ui/             # UI components
+│   ├── lib/                 # Utility functions
+│   ├── models/              # Database models
+│   └── styles/              # Global styles
+├── public/                  # Static files
+└── types/                   # TypeScript type definitions
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🧪 Running Tests
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+yarn test
+# or
+npm test
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Deployment
 
-## Learn More
+Deploy your own instance to Vercel:
 
-To learn more about Next.js, take a look at the following resources:
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyourusername%2Fvideohub)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🤝 Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## Deploy on Vercel
+## 📄 License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+Built with ❤️ using Next.js and TypeScript
